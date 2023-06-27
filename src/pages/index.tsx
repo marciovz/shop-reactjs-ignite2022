@@ -4,6 +4,8 @@ import Stripe from "stripe";
 import { useKeenSlider } from 'keen-slider/react'
 
 import { stripe } from "../lib/stripe";
+import { limiText } from "../utils/limitText";
+import { formatPrice } from "../utils/formatPrice";
 
 import 'keen-slider/keen-slider.min.css'
 import { HomeContainer, Product } from "../styles/pages/home";
@@ -49,13 +51,17 @@ export const getStaticProps: GetStaticProps = async () => {
   })
 
   const products = response.data.map(product => {
-    const price = product.default_price as Stripe.Price
+    const priceStripe = product.default_price as Stripe.Price
     
+    const price = priceStripe.unit_amount && priceStripe.unit_amount !== 0
+      ? priceStripe.unit_amount / 100
+      : 0
+  
     return {
       id: product.id,
-      name: product.name,
+      name: limiText(product.name, 26),
       imageUrl: product.images[0],
-      price: price.unit_amount &&  price.unit_amount !== 0 ? price.unit_amount / 100 : 0,
+      price: formatPrice(price)
     }
   })
 
