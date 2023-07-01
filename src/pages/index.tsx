@@ -67,7 +67,8 @@ export const getStaticProps: GetStaticProps = async () => {
       id: product.id,
       name: limiText(product.name, 26),
       imageUrl: product.images[0],
-      price: formatPrice(price)
+      price: formatPrice(price),
+
     }
   })
 
