@@ -1,11 +1,12 @@
-import { GetServerSideProps } from "next";
-import Link from "next/link";
+import { GetServerSideProps } from "next"
+import Link from "next/link"
 import Image from 'next/image'
-import { Stripe } from "stripe";
+import Head from "next/head"
+import { Stripe } from "stripe"
 
-import { stripe } from "../lib/stripe";
+import { stripe } from "../lib/stripe"
 
-import { SuccessContainer, ImageContainer } from "../styles/pages/success";
+import { SuccessContainer, ImageContainer } from "../styles/pages/success"
 
 interface SuccessProps {
   customerName: string;
@@ -15,23 +16,28 @@ interface SuccessProps {
   }
 }
 
-
 export default function Success({ customerName, product }: SuccessProps) {
   return (
-    <SuccessContainer>
-      <h1>Compra efetuada!</h1>
+    <>
+      <Head>
+        <title>Success | Ignite Shop</title>
+      </Head>
 
-      <ImageContainer>
-        <Image src={product.imageUrl} width={120} height={110} alt="" />
-      </ImageContainer>
+      <SuccessContainer>
+        <h1>Compra efetuada!</h1>
 
-      <p>Uhuul <strong>{customerName}</strong>, sua <strong>{product.name}</strong> já está a caminho da sua casa.</p>
+        <ImageContainer>
+          <Image src={product.imageUrl} width={120} height={110} alt="" />
+        </ImageContainer>
 
-      <Link href="/">
-        Voltar ao catálogo
-      </Link>
+        <p>Uhuul <strong>{customerName}</strong>, sua <strong>{product.name}</strong> já está a caminho da sua casa.</p>
 
-    </SuccessContainer>
+        <Link href="/">
+          Voltar ao catálogo
+        </Link>
+
+      </SuccessContainer>
+    </>
   )
 }
 
@@ -47,7 +53,6 @@ export const getServerSideProps: GetServerSideProps = async ({ query, params }) 
   }
 
   const sessionId = String(query.session_id);
-
 
   const session = await stripe.checkout.sessions.retrieve(sessionId, {
     expand: ['line_items', 'line_items.data.price.product']
