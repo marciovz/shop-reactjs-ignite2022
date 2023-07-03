@@ -4,6 +4,7 @@ import Image from 'next/image'
 import logoImg from '../../assets/logo.svg'
 
 import { HeaderContainer } from "./styles"
+import { CartButton } from '../CartButton'
 
 export function Header() {
   return (
@@ -11,6 +12,8 @@ export function Header() {
       <Link href={'/'}>
         <Image src={logoImg} alt="" />
       </Link>
+
+      <CartButton />
   </HeaderContainer>
   )
 }
