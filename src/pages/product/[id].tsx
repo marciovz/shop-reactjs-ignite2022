@@ -8,6 +8,7 @@ import { ImageContainer, ProductContainer, ProductDetails } from '@/src/styles/p
 import { useRouter } from 'next/router'
 import axios from 'axios'
 import { useState } from 'react'
+import { Button } from '@/src/components/Button'
 
 interface ProductProps {
   product: {
@@ -50,7 +51,6 @@ export default function Product({ product }: ProductProps) {
     <>
       <Head>
         <title>{product.name} | Ignite Shop</title>
-
         <meta name="robot" content="noindex" />
       </Head>
 
@@ -65,9 +65,7 @@ export default function Product({ product }: ProductProps) {
 
           <p>{product.description}</p>
 
-          <button disabled={isCreatingCheckoutSession} onClick={handleBuyProduct}>
-            Comprar agora
-          </button>
+          <Button title="Comprar agora" disabled={isCreatingCheckoutSession} onClick={handleBuyProduct} />
         </ProductDetails>
       </ProductContainer>
     </>
