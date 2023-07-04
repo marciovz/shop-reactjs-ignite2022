@@ -9,7 +9,8 @@ import { limiText } from "../utils/limitText";
 import { formatPrice } from "../utils/formatPrice";
 
 import 'keen-slider/keen-slider.min.css'
-import { HomeContainer, Product } from "../styles/pages/home";
+import { HomeContainer, HomeContent, SliderContainer, Product } from "../styles/pages/home";
+import { Header } from "../components/Header";
 
 interface HomeProps {
   products: {
@@ -34,24 +35,29 @@ export default function Home({ products }: HomeProps) {
         <title>Home | Ignite Shop</title>
       </Head>
 
-      <HomeContainer ref={sliderRef} className="keen-slider">
-
-        { products.map(product => {
-          return (
-            <Product 
-              key={product.id} 
-              href={`/product/${product.id}`}
-              prefetch={false}
-              className="keen-slider__slide"
-            >
-              <Image src={product.imageUrl} alt="" width={520} height={480} />
-              <footer>
-                <strong>{product.name}</strong>
-                <span>{product.price}</span>
-              </footer>
-            </Product>
-          )
-        })}
+      <HomeContainer>
+        <Header />
+        
+        <HomeContent>
+          <SliderContainer ref={sliderRef} className="keen-slider">
+            { products.map(product => {
+              return (
+                <Product 
+                  key={product.id} 
+                  href={`/product/${product.id}`}
+                  prefetch={false}
+                  className="keen-slider__slide"
+                >
+                  <Image src={product.imageUrl} alt="" width={520} height={480} />
+                  <footer>
+                    <strong>{product.name}</strong>
+                    <span>{product.price}</span>
+                  </footer>
+                </Product>
+              )
+            })}
+          </SliderContainer>
+        </HomeContent>
       </HomeContainer>
     </>  
   )
