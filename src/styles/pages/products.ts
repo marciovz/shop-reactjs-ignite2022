@@ -1,13 +1,26 @@
 import { styled } from '../index'
 
-export const ProductContainer = styled('main', {
+export const ProductContainer = styled('div', {
+  margin: '0 auto',
+  width: 1180,
+  height: '100vh',
+
+  display: 'flex',
+  flexDirection: 'column',
+})
+
+export const WrapperContent = styled('div',{
+  display: 'flex',
+  flex: 1,
+  alignItems: 'center',
+})
+
+export const ProductContent = styled('main', {
+  height: 'fit-content',
+
   display: 'grid',
   gridTemplateColumns: '1fr 1fr',
-  alignItems: 'stretch',
   gap: '4rem',
-
-  maxWidth: 1180,
-  margin: '0 auto'
 })
 
 export const ImageContainer = styled('div', {

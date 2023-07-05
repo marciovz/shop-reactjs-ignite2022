@@ -1,14 +1,22 @@
+import { useState } from 'react'
 import { GetStaticPaths, GetStaticProps } from 'next'
+import { useRouter } from 'next/router'
 import Image from 'next/image'
 import Head from 'next/head'
 import Stripe from 'stripe'
-import { stripe } from '@/src/lib/stripe'
-
-import { ImageContainer, ProductContainer, ProductDetails } from '@/src/styles/pages/products'
-import { useRouter } from 'next/router'
 import axios from 'axios'
-import { useState } from 'react'
+
+import { stripe } from '@/src/lib/stripe'
+import { Header } from '@/src/components/Header'
 import { Button } from '@/src/components/Button'
+
+import { 
+  ProductContainer, 
+  WrapperContent, 
+  ProductContent, 
+  ImageContainer, 
+  ProductDetails 
+} from '@/src/styles/pages/products'
 
 interface ProductProps {
   product: {
@@ -55,18 +63,24 @@ export default function Product({ product }: ProductProps) {
       </Head>
 
       <ProductContainer>
-        <ImageContainer>
-          <Image src={product?.imageUrl} width={520} height={480} alt=""/>
-        </ImageContainer>
+        <Header />
 
-        <ProductDetails>
-          <h1>{ product.name}</h1>
-          <span>{product.price}</span>
+        <WrapperContent>
+          <ProductContent>
+            <ImageContainer>
+              <Image src={product?.imageUrl} width={520} height={480} alt=""/>
+            </ImageContainer>
 
-          <p>{product.description}</p>
+            <ProductDetails>
+              <h1>{ product.name}</h1>
+              <span>{product.price}</span>
 
-          <Button title="Comprar agora" disabled={isCreatingCheckoutSession} onClick={handleBuyProduct} />
-        </ProductDetails>
+              <p>{product.description}</p>
+
+              <Button title="Comprar agora" disabled={isCreatingCheckoutSession} onClick={handleBuyProduct} />
+            </ProductDetails>
+          </ProductContent>
+        </WrapperContent>
       </ProductContainer>
     </>
 
