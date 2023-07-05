@@ -9,6 +9,7 @@ import { stripe } from '@/src/lib/stripe'
 import { Header } from '@/src/components/Header'
 import { Button } from '@/src/components/Button'
 import Loading from '@/src/components/Loading'
+import { formatPrice } from '@/src/utils/formatPrice'
 
 import { 
   ProductContainer, 
@@ -32,16 +33,16 @@ interface ProductProps {
 
 export default function Product({ product }: ProductProps) {
   const { isFallback } = useRouter()
-  const { AddProduct } = useCart()
+  const { addProduct } = useCart()
 
   function handleAddToCart() {
-    AddProduct(product)
+    addProduct(product)
   }
 
   return (
     <>
       <Head>
-        <title>{product.name} | Ignite Shop</title>
+        <title>{product?.name} | Ignite Shop</title>
         <meta name="robot" content="noindex" />
       </Head>
 
@@ -79,9 +80,7 @@ export default function Product({ product }: ProductProps) {
 
 export const getStaticPaths: GetStaticPaths = async () => {
   return {
-    paths: [
-      { params: { id: 'prod_O9vjUEg7PE7cAh' }}
-    ],
+    paths: [],
     fallback: true,
   }
 }
@@ -102,10 +101,7 @@ export const getStaticProps: GetStaticProps<any, { id: string}> = async ({ param
         name: product.name,
         imageUrl: product.images[0],
         price:price.unit_amount,
-        formattedPrice: new Intl.NumberFormat('pt-BR', {
-          style: 'currency',
-          currency: 'BRL',
-        }).format(price.unit_amount! / 100),
+        formattedPrice: formatPrice(price.unit_amount! / 100),
         description: product.description,
         defaultPriceId: price.id
       },
