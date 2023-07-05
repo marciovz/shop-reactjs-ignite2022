@@ -3,10 +3,11 @@ import { Handbag } from "phosphor-react";
 import { ButtonContainer } from './styles'
 
 interface CartButtonProps {
+  quantity: number
   openCartModal: () => void
 }
 
-export function CartButton({openCartModal}: CartButtonProps) {
+export function CartButton({quantity, openCartModal}: CartButtonProps) {
 
   function handleOpenModal() {
     openCartModal()
@@ -15,7 +16,7 @@ export function CartButton({openCartModal}: CartButtonProps) {
   return (
     <ButtonContainer onClick={handleOpenModal}>
       <Handbag size={24} weight="bold"/>
-      <span>1</span>
+      { quantity > 0 && <span>{quantity}</span>}
     </ButtonContainer>
   )
 }
