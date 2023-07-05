@@ -2,22 +2,28 @@ import Image from 'next/image'
 
 import { Container, BoxImage, BoxContent } from "./styles"
 
-interface CartItemProps {
-  title: string
+interface CartItemData {
+  name: string
   imageUrl: string
+  formattedPrice: string
 }
 
-export function CartItem({ title, imageUrl }: CartItemProps) {
+interface CartItemProps {
+  product: CartItemData
+  removeItem: () => void
+}
+
+export function CartItem({ product, removeItem }: CartItemProps) {
 
   return (
     <Container>
       <BoxImage>
-        <Image src={imageUrl} width={96} height={96} alt="" />
+        <Image src={product.imageUrl} width={96} height={96} alt="" />
       </BoxImage>
       <BoxContent>
-        <h2>{title}</h2>
-        <span>R$ 79.90</span>
-        <button>Remover</button>
+        <h2>{product.name}</h2>
+        <span>{product.formattedPrice}</span>
+        <button onClick={removeItem}>Remover</button>
       </BoxContent>
     </Container>
   )
