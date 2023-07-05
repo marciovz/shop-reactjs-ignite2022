@@ -7,11 +7,12 @@ export const ButtonContainer = styled('button', {
   fontSize: '$md',
   fontWeight: 'bold',
   color: '$white',
+  cursor: 'pointer',
 
   backgroundColor: '$green500',
   border: 0,
   borderRadius: 8,
-  cursor: 'pointer',
+  transition: 'background 0.2s',
 
   '&:disabled': {
     opacity: 0.6,
