@@ -13,6 +13,7 @@ export const WrapperContent = styled('div',{
   display: 'flex',
   flex: 1,
   alignItems: 'center',
+  justifyContent: 'center',
 })
 
 export const ProductContent = styled('main', {
