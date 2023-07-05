@@ -1,51 +1,69 @@
 
-import { ReactNode, createContext, useContext, useEffect, useMemo, useState } from 'react'
+import { ReactNode, createContext, useContext, useMemo, useState } from 'react'
 
-interface ProductCart {
+import { formatPrice } from '../utils/formatPrice'
+
+interface Product {
   id: string;
   name: string;
   imageUrl: string;
   price: number;
+  formattedPrice: string,
+  defaultPriceId: string;
+}
+
+interface ProductCart extends Product {
+  itemId: string;
 }
 
 interface CartContextData {
   productsCart: ProductCart[]
   quantityItems: number
-  total: number
-  AddProduct: (product: ProductCart) => void
+  FormattedTotal: string
+  addProduct: (product: Product) => void
+  removeProduct: (itemId: string) => void
 }
-
-const CartContext = createContext({} as CartContextData)
 
 interface CartProviderProps {
   children: ReactNode
 }
+
+const CartContext = createContext({} as CartContextData)
 
 export function CartProvider({ children }: CartProviderProps) {
   const [ productsCart, setProductsCart ] = useState<ProductCart[]>([])
 
   const quantityItems = productsCart.length
 
-  const total = useMemo(() => {
-    return productsCart.reduce((acc, product) => {
+  const FormattedTotal = useMemo(() => {
+    const total =  productsCart.reduce((acc, product) => {
       return acc + product.price
     }, 0)
+    return formatPrice(total / 100)
   },[productsCart])
 
-  function AddProduct(product: ProductCart) {
-    setProductsCart(state => [...state, product])
+  function addProduct(product: Product) {
+    setProductsCart(state => [
+      ...state, 
+      {
+        ...product,    
+        itemId: crypto.randomUUID(),
+      }
+    ])
   }
 
-  useEffect(() => {
-    console.log(productsCart)
-  }, [productsCart])
+  function removeProduct(itemId: string) {
+    const updatedProductsCart = productsCart.filter(cartItem => cartItem.itemId !== itemId)
+    setProductsCart([...updatedProductsCart])
+  }
 
   return (
     <CartContext.Provider value={{
       productsCart,
       quantityItems,
-      total,
-      AddProduct,
+      FormattedTotal,
+      addProduct,
+      removeProduct,
     }}>
       { children }
     </CartContext.Provider>
