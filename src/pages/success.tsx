@@ -1,12 +1,15 @@
+// http://localhost:3000/success?session_id=cs_test_a1XUv2XewtpX6KO19y2OpTr8FuLLieM8CzoPNRxGKGggngFTDQvnWMzGwP
+
 import { GetServerSideProps } from "next"
-import Link from "next/link"
 import Image from 'next/image'
 import Head from "next/head"
 import { Stripe } from "stripe"
 
-import { stripe } from "../lib/stripe"
+import { stripe } from "@/src/lib/stripe"
 
-import { SuccessContainer, ImageContainer } from "../styles/pages/success"
+import logoImg from '@/src/assets/logo.svg'
+
+import { SuccessContainer, LogoLink, ImageContainer, ImageBox, LinkGoHome } from "../styles/pages/success"
 
 interface SuccessProps {
   customerName: string;
@@ -24,17 +27,33 @@ export default function Success({ customerName, product }: SuccessProps) {
       </Head>
 
       <SuccessContainer>
-        <h1>Compra efetuada!</h1>
+        
+        <LogoLink href={'/'}>
+          <Image src={logoImg} width={130} alt="" />
+        </LogoLink>
+
 
         <ImageContainer>
-          <Image src={product.imageUrl} width={120} height={110} alt="" />
+          <ImageBox>
+            <Image src={product.imageUrl} width={130} height={130} alt="" />
+          </ImageBox>
+
+          <ImageBox>
+            <Image src={product.imageUrl} width={130} height={130} alt="" />
+          </ImageBox>
+
+          <ImageBox>
+            <Image src={product.imageUrl} width={130} height={130} alt="" />
+          </ImageBox>
         </ImageContainer>
+
+        <h1>Compra efetuada!</h1>
 
         <p>Uhuul <strong>{customerName}</strong>, sua <strong>{product.name}</strong> já está a caminho da sua casa.</p>
 
-        <Link href="/">
+        <LinkGoHome href="/">
           Voltar ao catálogo
-        </Link>
+        </LinkGoHome>
 
       </SuccessContainer>
     </>

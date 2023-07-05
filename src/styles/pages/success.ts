@@ -1,54 +1,70 @@
 import { styled } from ".."
+import Link from "next/link"
 
 export const SuccessContainer = styled('main', {
   display: 'flex',
   flexDirection: 'column',
   alignItems: 'center',
-  justifyContent: 'center',
-  margin: '0 auto',
-  height: 656,
 
   h1: {
+    marginTop: '3.6rem',
     fontSize: '$2xl',
     color: '$gray100',
   },
 
   p: {
+    marginTop: '1.3rem',
+    maxWidth: 560,
+
     fontSize: '$xl',
     color: '$gray300',
-    maxWidth: 560,
     textAlign: 'center',
-    marginTop: '2rem',
   },
+})
 
-  a: {
-    display: 'block',
-    marginTop: '5rem',
-    fontSize: '$lg',
-    color: '$green500',
-    textDecoration: 'none',
-
-    '&:hover': {
-      color: '$green300',
-    }
-  }
-
+export const LogoLink = styled(Link, {
+  marginTop: '4rem',
 })
 
 export const ImageContainer = styled('div', {
-  width: '100%',
-  maxWidth: 130,
-  height: 145,
-  background: 'linear-gradient(180deg, #1ea483 0%, #7465d4 100%)',
-  borderRadius: 8,
-  padding: '0.25rem',
-  marginTop: '4rem',
+  marginTop: '6.5rem',
+  display: 'flex',
+})
+
+export const ImageBox = styled('div', {
+  width: 130,
+  height: 130,
 
   display: 'flex',
   alignItems: 'center',
   justifyContent: 'center',
 
+  background: 'linear-gradient(180deg, #1ea483 0%, #7465d4 100%)',
+  borderRadius: '50%',
+  boxShadow: '0 0 10px #202024',
+
+  '& + &': {
+    marginLeft: '-45px',
+  },
+
   img: {
-    objectFit: 'cover'
+    objectFit: 'cover',
+    width: 'inherit',
+    height: 'inherit',
+  }
+})
+
+export const LinkGoHome = styled(Link, {
+  marginTop: '5rem',
+  padding: '0.5rem',
+  display: 'block',
+  
+  fontSize: '$lg',
+  color: '$green500',
+  textDecoration: 'none',
+  transition: 'color 0.2s',
+
+  '&:hover': {
+    color: '$green300',
   }
 })
