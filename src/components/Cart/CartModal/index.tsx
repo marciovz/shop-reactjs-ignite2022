@@ -7,6 +7,12 @@ import { CartItem } from '../CartItem'
 
 import { Container, ButtonCloseContainer, Header, ListItem, Footer } from './styles'
 
+interface CheckoutItemsData {
+  id: string
+  price: string
+  quantity:number
+}
+
 interface ProductCartData {
   itemId: string,
   id: string;
@@ -24,7 +30,6 @@ interface CartModalProps {
   removeProduct: (itemId: string) => void
   isOpen: boolean
   closeCartModal: () => void
-
 }
 
 export function CartModal({productsCart, quantity, formattedTotal, removeProduct, isOpen, closeCartModal}: CartModalProps) {
@@ -35,17 +40,45 @@ export function CartModal({productsCart, quantity, formattedTotal, removeProduct
     closeCartModal()
   }
 
-  async function handleBuyProduct() {
-   try {
-      //setIsCreatingCheckoutSession(true)
+  function mountCheckoutItems() {
+    const checkoutProductItems = productsCart.reduce((acc, productItem) => {
+      const index = acc.findIndex(accItem => accItem.id === productItem.id)
 
-      // const response = await axios.post('/api/checkout', {
-      //   priceId: product.defaultPriceId,
-      // }) 
-      // const { checkoutUrl } = response.data
-      // window.location.href = checkoutUrl
+      if(index < 0) {
+        acc.push({
+          id: productItem.id,
+          price: productItem.defaultPriceId,
+          quantity: 1
+        })
+      }else {
+        acc[index].quantity = acc[index].quantity + 1
+      }
+
+      return acc
+    }, [] as CheckoutItemsData[])
+
+    const checkoutItems = checkoutProductItems.map(checkoutItem => ({
+      price: checkoutItem.price,
+      quantity: checkoutItem.quantity
+    }))
+
+    return checkoutItems
+  }
+
+  async function handleBuyProduct() {
+
+   try {
+      setIsCreatingCheckoutSession(true)
+
+      const response = await axios.post('/api/checkout', {
+        checkoutItems: mountCheckoutItems(),
+      }) 
+      
+      const { checkoutUrl } = response.data
+      window.location.href = checkoutUrl
     } catch (error) {
       // Conectar com uma ferramenta de observabilidade (Datadog / Sentry)
+      console.log(error)
       setIsCreatingCheckoutSession(false)
       alert('Falha ao redirecionar ao checkout!')
     }
@@ -86,7 +119,11 @@ export function CartModal({productsCart, quantity, formattedTotal, removeProduct
           <span>{formattedTotal}</span>
         </div>
         
-        <Button title="Finalizar compra" style={{ marginTop: 36 }} />
+        <Button 
+          title="Finalizar compra" 
+          style={{ marginTop: 36 }} 
+          onClick={handleBuyProduct}
+        />
       </Footer>
     </Container>
   )

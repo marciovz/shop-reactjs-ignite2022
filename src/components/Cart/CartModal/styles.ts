@@ -1,6 +1,5 @@
 import { styled } from '../../../styles/index'
 
-
 export const Container = styled('div', {
   padding: 48,
   width: 480,
