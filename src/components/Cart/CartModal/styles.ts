@@ -53,6 +53,17 @@ export const Header = styled('div', {
   }
 })
 
+export const EmptyCart = styled('div', {
+  display: 'flex',
+  flex: 1,
+  alignItems: 'center',
+  justifyContent: 'center',
+
+  p: {
+    fontSize: '1.2rem',
+  }
+})
+
 export const ListItem = styled('div', {
   marginTop: 24,
 

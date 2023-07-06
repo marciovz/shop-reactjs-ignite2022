@@ -5,7 +5,7 @@ import axios from 'axios'
 import { Button } from '../../Button'
 import { CartItem } from '../CartItem'
 
-import { Container, ButtonCloseContainer, Header, ListItem, Footer } from './styles'
+import { Container, ButtonCloseContainer, Header, EmptyCart, ListItem, Footer } from './styles'
 
 interface CheckoutItemsData {
   id: string
@@ -77,12 +77,13 @@ export function CartModal({productsCart, quantity, formattedTotal, removeProduct
       const { checkoutUrl } = response.data
       window.location.href = checkoutUrl
     } catch (error) {
-      // Conectar com uma ferramenta de observabilidade (Datadog / Sentry)
       console.log(error)
       setIsCreatingCheckoutSession(false)
       alert('Falha ao redirecionar ao checkout!')
     }
   }
+
+  const isEmptyCart = productsCart.length === 0
   
   return (
     <Container isOpen={isOpen} >
@@ -97,7 +98,11 @@ export function CartModal({productsCart, quantity, formattedTotal, removeProduct
       </Header>
 
       <ListItem>
-        {
+        {isEmptyCart ? (
+          <EmptyCart>
+            <p>Você não possui produtos em seu carrinho</p>
+          </EmptyCart>
+        ) : (
           productsCart?.map(productItem => (
             <CartItem
               key ={productItem.itemId}
@@ -105,6 +110,8 @@ export function CartModal({productsCart, quantity, formattedTotal, removeProduct
               removeItem={() => removeProduct(productItem.itemId)}
             />
           ))
+        )
+
         }       
       </ListItem>
 
@@ -122,6 +129,7 @@ export function CartModal({productsCart, quantity, formattedTotal, removeProduct
         <Button 
           title="Finalizar compra" 
           style={{ marginTop: 36 }} 
+          disabled={isEmptyCart}
           onClick={handleBuyProduct}
         />
       </Footer>
