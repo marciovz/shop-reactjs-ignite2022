@@ -2,13 +2,16 @@
 
 ## Introdução
 
-Ignite Shop é uma aplicação WEB de uma loja de camisetas. Possui uma integração com a plataforma de pagamentos da Stripe. No site do ignite Shop o cliente seleciona uma camiseta da lista, efetua a compra na página de detalhes do produto, preenche os dados na plataforma de pagamento da Stripe sendo redirecionado para a página de sucesso da aplicação caso o processamento seja confirmado.
+Ignite Shop é uma aplicação WEB de uma loja de camisetas. Possui uma integração com a plataforma de pagamentos da Stripe. No site do ignite Shop o cliente seleciona as camisetas disponíveis na lista adicionando-as no carrinho, confere os itens do carrinho e efetua a compra sendo redirecionado para a plataforma de pagamento da Stripe. Na plataforma do stripe o cliente preenche os dados e é  redirecionado para a página de sucesso da aplicação caso o processamento seja confirmado.
 
 É um projeto desenvolvido no curso de Reactjs módulo 4 ministrado pela Rocketseat abordando os conceitos sobre o framework Nextjs e a bibliteca de estilização Stitches.
 
 <div align="center" >
   <img alt="ignite shop home" src="./assets/shop-home.png" width="300px" />
   <img alt="ignite shop produto" src="./assets/shop-product.png" width="300px" />
+</div>
+<div align="center" >  
+  <img alt="ignite shop produto" src="./assets/shop-cart.png" width="300px" />
   <img alt="ignite shop sucesso" src="./assets/shop-success.png" width="300px" />
 </div>
 
@@ -71,4 +74,3 @@ npm run dev
 ```
 
 Abrir a aplicação no navegador no endereço http://localhost:3000
-
