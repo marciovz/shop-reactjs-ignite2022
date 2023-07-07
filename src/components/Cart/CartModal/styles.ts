@@ -48,7 +48,7 @@ export const Header = styled('div', {
   marginTop: 24,
 
   h1: {
-    fontSize: 20,
+    fontSize: '$lg',
     fontWeight: 'bold',
   }
 })
@@ -60,7 +60,7 @@ export const EmptyCart = styled('div', {
   justifyContent: 'center',
 
   p: {
-    fontSize: '1.2rem',
+    fontSize: '$md',
   }
 })
 
@@ -101,22 +101,22 @@ export const Footer = styled('footer', {
 
   'div:first-child': {
     p: {
-      fontSize: 16,
+      fontSize: '$sm',
       fontWeight: 'regular',
     },
     span: {
-      fontSize: 18,
+      fontSize: '$md',
       fontWeight: 'regular',
     },
   },
 
   'div:nth-child(2)': {
     p: {
-      fontSize: 18,
+      fontSize: '$md',
       fontWeight: 'bold',
     },
     span: {
-      fontSize: 24,
+      fontSize: '$xl',
       fontWeight: 'bold',
     },
   },

@@ -31,20 +31,20 @@ export const BoxContent = styled('div', {
   justifyContent: 'space-between',
 
   '& > h2': {
-    fontSize: 18,
+    fontSize: '$md',
     fontWeight: 'regular',
     color: '$gray300'
   },
 
   '& > span': {
-    fontSize: 18,
+    fontSize: '$md',
     fontWeight: 'bold',
     color: '$gray100',
   },
 
   '& > button': {
     width: 'fit-content',
-    fontSize: 16,
+    fontSize: '$sm',
     fontWeight: 'bold',
     color: '$green500',
     cursor: 'pointer',

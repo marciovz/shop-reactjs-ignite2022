@@ -30,7 +30,7 @@ export const ButtonContainer = styled('button', {
     alignItems: 'center',
     justifyContent: 'center',
 
-    fontSize: 14,
+    fontSize: '$xm',
     fontWeight: 'bold',
     color: '$white',
 
